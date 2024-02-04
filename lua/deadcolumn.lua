@@ -14,7 +14,7 @@ local function get_hl_hex(hlgroup_name, field, fallback)
     return fallback
   end
   local attr_val =
-    colors.get(0, { name = hlgroup_name, winhl_link = false })[field]
+    vim.api.nvim_get_hl(0, { name = hlgroup_name, link = false })[field]
   return attr_val and colors.dec2hex(attr_val, 6) or fallback
 end
 

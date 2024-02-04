@@ -27,25 +27,6 @@ local todec = {
 }
 -- stylua: ignore end
 
----Wrapper of nvim_get_hl(), add new option `winhl_link` to get
----highlight attributes without being affected by winhl
----@param ns_id integer
----@param opts table{ name: string?, id: integer?, link: boolean? }
----@return vim.api.keyset.highlight: highlight attributes
-function M.get(ns_id, opts)
-  local no_winhl_link = opts.winhl_link == false
-  opts.winhl_link = nil
-  local attr = vim.api.nvim_get_hl(ns_id, opts)
-  -- We want to get true highlight attribute not affected by winhl
-  if no_winhl_link then
-    while attr.link do
-      opts.name = attr.link
-      attr = vim.api.nvim_get_hl(ns_id, opts)
-    end
-  end
-  return attr
-end
-
 ---Convert an integer from decimal to hexadecimal
 ---@param int integer
 ---@param n_digits integer? number of digits used for the hex code
